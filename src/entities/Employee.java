@@ -1,6 +1,7 @@
 package entities;
 
 public abstract class Employee {
+    private Integer id;
     private String name;
     private Double baseSalary;
     private Double salesValue;
