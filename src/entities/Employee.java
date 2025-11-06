@@ -9,7 +9,7 @@ public abstract class Employee {
     public Employee() {
     }
 
-    public Employee(String name, Double baseSalary) {
+    public Employee(String name, double baseSalary) {
         this.name = name;
         this.baseSalary = baseSalary;
     }
@@ -26,11 +26,11 @@ public abstract class Employee {
         return baseSalary;
     }
 
-    public void setBaseSalary(Double baseSalary) {
+    public void setBaseSalary(double baseSalary) {
         this.baseSalary = baseSalary;
     }
 
-    public void increaseSalary(Double increaseValue){
+    public void increaseSalary(double increaseValue){
         baseSalary += increaseValue;
     }
 
