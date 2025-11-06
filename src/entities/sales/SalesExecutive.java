@@ -9,7 +9,7 @@ public class SalesExecutive extends SalesEmployee {
     }
 
     @Override
-    public Double totalPayment() {
+    public double totalPayment() {
         return getBaseSalary() + (getMonthSales() * COMISSION_RATE);
     }
 

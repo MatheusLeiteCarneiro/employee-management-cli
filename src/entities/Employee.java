@@ -9,7 +9,7 @@ public abstract class Employee {
     public Employee() {
     }
 
-    public Employee(int id ,String name, double baseSalary) {
+    public Employee(int id, String name, double baseSalary) {
         this.id = id;
         this.name = name;
         this.baseSalary = baseSalary;
@@ -35,25 +35,28 @@ public abstract class Employee {
         this.baseSalary = baseSalary;
     }
 
-    public void increaseSalary(double increaseValue){
+    public void increaseSalary(double increaseValue) {
         baseSalary += increaseValue;
     }
 
-    public String paymentForEmployee(){
+    public String paymentForEmployee() {
         return getId() + "- " + getName() + " | totalPayment: $" + String.format("%.2f", totalPayment());
     }
-    public String employeeRegister(){
+
+    public String employeeRegister() {
         StringBuilder sb = new StringBuilder();
-        sb.append( getId() + "- " + getName() + " | " + deparmentAndLevel());
-        return sb.toString();
-    }
-    public String employeeRegisterWithBaseSalary(){
-        StringBuilder sb = new StringBuilder();
-        sb.append( getId() + "- " + getName() + " | " + deparmentAndLevel() + " | Base salary: $" + String.format("%.2f",getBaseSalary()));
+        sb.append(getId() + "- " + getName() + " | " + deparmentAndLevel());
         return sb.toString();
     }
 
-    public abstract Double totalPayment();
+    public String employeeRegisterWithBaseSalary() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getId() + "- " + getName() + " | " + deparmentAndLevel() + " | Base salary: $" + String.format("%.2f", getBaseSalary()));
+        return sb.toString();
+    }
+
+    public abstract double totalPayment();
+
     public abstract String deparmentAndLevel();
 
 }

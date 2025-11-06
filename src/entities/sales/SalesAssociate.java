@@ -1,6 +1,6 @@
 package entities.sales;
 
-public class SalesAssociate extends SalesEmployee{
+public class SalesAssociate extends SalesEmployee {
     private static final double COMISSION_RATE = 0.025;
 
 
@@ -9,7 +9,7 @@ public class SalesAssociate extends SalesEmployee{
     }
 
     @Override
-    public Double totalPayment() {
+    public double totalPayment() {
         return getBaseSalary() + (getMonthSales() * COMISSION_RATE);
     }
 

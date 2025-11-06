@@ -1,6 +1,6 @@
 package entities.dev;
 
-public class DevTrainee extends DevEmployee{
+public class DevTrainee extends DevEmployee {
     private static final double BONUS_PER_PROJECT = 50.00;
 
     public DevTrainee(int id, String name, double baseSalary, int projectsMade) {
@@ -8,7 +8,7 @@ public class DevTrainee extends DevEmployee{
     }
 
     @Override
-    public Double totalPayment() {
+    public double totalPayment() {
         return getBaseSalary() + (getProjectsMade() * BONUS_PER_PROJECT);
     }
 

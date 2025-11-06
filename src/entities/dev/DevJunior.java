@@ -1,6 +1,6 @@
 package entities.dev;
 
-public class DevJunior extends DevEmployee{
+public class DevJunior extends DevEmployee {
     private static final double BONUS_PER_PROJECT = 150.00;
 
 
@@ -9,7 +9,7 @@ public class DevJunior extends DevEmployee{
     }
 
     @Override
-    public Double totalPayment() {
+    public double totalPayment() {
         return getBaseSalary() + (getProjectsMade() * BONUS_PER_PROJECT);
     }
 

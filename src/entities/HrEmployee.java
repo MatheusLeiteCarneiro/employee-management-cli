@@ -1,6 +1,6 @@
 package entities;
 
-public class HrEmployee extends Employee{
+public class HrEmployee extends Employee {
     public HrEmployee() {
         super();
     }
@@ -10,7 +10,7 @@ public class HrEmployee extends Employee{
     }
 
     @Override
-    public Double totalPayment() {
+    public double totalPayment() {
         return getBaseSalary();
     }
 
