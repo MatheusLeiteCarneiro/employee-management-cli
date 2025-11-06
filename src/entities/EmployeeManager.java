@@ -22,16 +22,14 @@ public class EmployeeManager {
         employeeList.remove(employee);
     }
 
-    public Integer verifyId(int id) {
-        if (id < 0) {
-            return -1;
-        }
-        for (Employee employee : employeeList) {
-            if (employee.getId() == id) {
-                return employeeList.indexOf(employee);
+    public int verifyId(int id) {
+            for (Employee employee : employeeList) {
+                if (employee.getId() == id) {
+                    return employeeList.indexOf(employee);
+                }
             }
-        }
-        return null;
+
+        return -1;
     }
 
     public boolean verifyIfHaveEmployee() {
