@@ -17,4 +17,14 @@ public abstract class DevEmployee extends Employee {
     public void setProjectsMade(int projectsMade) {
         this.projectsMade = projectsMade;
     }
+
+    public static boolean verifyLevel(Integer level) {
+        if (level == null) {
+            return false;
+        }
+        if (level == 1 || level == 2 || level == 3 || level == 4) {
+            return true;
+        }
+        return false;
+    }
 }

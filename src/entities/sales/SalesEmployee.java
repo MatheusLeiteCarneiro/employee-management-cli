@@ -18,4 +18,14 @@ public abstract class SalesEmployee extends Employee {
         this.monthSales = monthSales;
     }
 
+    public static boolean verifyLevel(Integer level) {
+        if (level == null) {
+            return false;
+        }
+        if (level == 1 || level == 2 || level == 3) {
+            return true;
+        }
+        return false;
+    }
+
 }
