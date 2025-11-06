@@ -39,6 +39,10 @@ public abstract class Employee {
         baseSalary += increaseValue;
     }
 
+    public String paymentForEmployee(){
+        return getId() + "- " + getName() + " | totalPayment: $" + String.format("%.2f", totalPayment());
+    }
+
     public abstract Double totalPayment();
 
 }
