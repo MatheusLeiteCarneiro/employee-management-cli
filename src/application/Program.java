@@ -136,7 +136,7 @@ public class Program {
                     System.out.print("Digit the employee ID you want to calculate the payment: ");
                     int pickId = sc.nextInt();
                     int idIndex = employeeManager.verifyId(pickId);
-                    while (idIndex == -1){
+                    while (idIndex == -1) {
                         System.out.print("This ID does not exist, digit a valid one: ");
                         pickId = sc.nextInt();
                         idIndex = employeeManager.verifyId(pickId);
@@ -145,6 +145,8 @@ public class Program {
 
                     break;
                 case 3:
+                    System.out.println(employeeManager.payRollList());
+
                     break;
                 case 4:
                     break;
