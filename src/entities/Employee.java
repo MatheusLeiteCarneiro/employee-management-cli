@@ -1,10 +1,10 @@
 package entities;
 
 public abstract class Employee {
-    private Integer id;
+    private int id;
     private String name;
-    private Double baseSalary;
-    private Double salesValue;
+    private double baseSalary;
+
 
     public Employee() {
     }
@@ -30,13 +30,6 @@ public abstract class Employee {
         this.baseSalary = baseSalary;
     }
 
-    public Double getSalesValue() {
-        return salesValue;
-    }
-
-    public void setSalesValue(Double salesValue) {
-        this.salesValue = salesValue;
-    }
     public void increaseSalary(Double increaseValue){
         baseSalary += increaseValue;
     }
