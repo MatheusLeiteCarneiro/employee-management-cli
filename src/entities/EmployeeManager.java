@@ -49,10 +49,11 @@ public class EmployeeManager {
     }
 
     public String listAllEmployees() {
+        employeeList.sort(Comparator.comparing(Employee::getId));
         StringBuilder sb = new StringBuilder();
         sb.append("Employees list:\n");
         for (Employee employee : employeeList) {
-            sb.append("ID: " + employee.getId() + ", Name: " + employee.getName() + "\n");
+            sb.append(employee.typeOfEmployee() + "\n");
         }
         return sb.toString();
     }
