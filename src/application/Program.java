@@ -22,7 +22,7 @@ public class Program {
             System.out.println("\nWhat's the operation you want to make it?");
             System.out.println("Type:");
             System.out.println("| 1- Register a new employee | 2- Calculate month payment for a employee | 3- Check total payroll |");
-            System.out.println("| 4-List all employees | 5-Remove a employee | 6- Change a employee information |");
+            System.out.println("| 4-List all employees | 5-Delete a employee | 6- Change a employee information |");
             System.out.println("| 0- finish operations|");
             operation = sc.nextInt();
             System.out.println();
@@ -151,8 +151,31 @@ public class Program {
                     System.out.print(employeeManager.listAllEmployees());
                     break;
                 case 5:
+                    System.out.print("Digit the employee ID you want to delete: ");
+                    pickId = sc.nextInt();
+                    idIndex = employeeManager.verifyId(pickId);
+                    while (idIndex == -1) {
+                        System.out.print("This ID does not exist, digit a valid one: ");
+                        pickId = sc.nextInt();
+                        idIndex = employeeManager.verifyId(pickId);
+                    }
+                    System.out.println("You chose the employee: " + employeeManager.getEmployeeList().get(idIndex).employeeRegister());
+                    System.out.print("Digit: (1-to confirm | 0-to cancel): ");
+                    int confirmation = sc.nextInt();
+                    while (!verifyResponse(confirmation)){
+                        System.out.print("Invalid response, digit: (1-to confirm | 0-to cancel): ");
+                        confirmation = sc.nextInt();
+                    }
+                    if(confirmation == 0){
+                        System.out.println("Operation canceled!");
+                    }
+                    else{
+                        employeeManager.removeEmploye(idIndex);
+                        System.out.println("Employee succesfully deleted!");
+                    }
                     break;
                 case 6:
+
                     break;
                 case 0:
                     break;
@@ -165,5 +188,12 @@ public class Program {
 
 
         sc.close();
+    }
+
+    public static boolean verifyResponse(int confirmation){
+        if(confirmation == 0 || confirmation == 1){
+            return true;
+        }
+        return false;
     }
 }
