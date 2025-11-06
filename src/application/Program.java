@@ -585,8 +585,10 @@ public class Program {
 
                     break;
                 case 0:
+                    System.out.println("Operations finished!");
                     break;
                 default:
+                    System.out.println("Invalid operation!");
                     break;
             }
 
