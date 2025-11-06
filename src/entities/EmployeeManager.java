@@ -94,4 +94,19 @@ public class EmployeeManager {
         }
         return false;
     }
+
+    public static boolean verifyChange(int informationToChange) {
+        if(informationToChange == 1 || informationToChange == 2 || informationToChange == 3 || informationToChange == 4) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean verifyChangeWithoutLevels(int informationToChange) {
+        if(informationToChange == 1 || informationToChange == 2 || informationToChange == 3){
+            return true;
+        }
+        return false;
+    }
+
 }
