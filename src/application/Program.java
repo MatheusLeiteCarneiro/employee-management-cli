@@ -25,14 +25,15 @@ public class Program {
             System.out.println("| 4-List all employees | 5-Remove a employee | 6- Change a employee information |");
             System.out.println("| 0- finish operations|");
             operation = sc.nextInt();
+            System.out.println();
             switch (operation) {
                 case 1:
                     System.out.println("Employee data:");
 
                     System.out.print("ID: ");
                     int id = sc.nextInt();
-                    Integer verifyId = employeeManager.verifyId(id);
-                    while (verifyId != null) {
+                    int verifyId = employeeManager.verifyId(id);
+                    while (verifyId != -1 || id < 0) {
                         System.out.print("This ID is not valid choose a new ID: ");
                         id = sc.nextInt();
                         verifyId = employeeManager.verifyId(id);
@@ -132,6 +133,16 @@ public class Program {
                     System.out.println("Employee succesfully registered!");
                     break;
                 case 2:
+                    System.out.print("Digit the employee ID you want to calculate the payment: ");
+                    int pickId = sc.nextInt();
+                    int idIndex = employeeManager.verifyId(pickId);
+                    while (idIndex == -1){
+                        System.out.print("This ID does not exist, digit a valid one: ");
+                        pickId = sc.nextInt();
+                        idIndex = employeeManager.verifyId(pickId);
+                    }
+                    System.out.println(employeeManager.getEmployeeList().get(idIndex).paymentForEmployee());
+
                     break;
                 case 3:
                     break;
