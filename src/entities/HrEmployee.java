@@ -5,8 +5,8 @@ public class HrEmployee extends Employee{
         super();
     }
 
-    public HrEmployee(String name, Double baseSalary) {
-        super(name, baseSalary);
+    public HrEmployee(int id, String name, Double baseSalary) {
+        super(id, name, baseSalary);
     }
 
     @Override

@@ -7,8 +7,8 @@ public class DevIntern extends DevEmployee{
         super();
     }
 
-    public DevIntern(String name, double baseSalary, int projectsMade) {
-        super(name, baseSalary, projectsMade);
+    public DevIntern(int id, String name, double baseSalary, int projectsMade) {
+        super(id, name, baseSalary, projectsMade);
     }
 
     @Override

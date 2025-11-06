@@ -7,8 +7,8 @@ public class SalesAssociate extends SalesEmployee{
         super();
     }
 
-    public SalesAssociate(String name, double baseSalary, double monthSales) {
-        super(name, baseSalary, monthSales);
+    public SalesAssociate(int id, String name, double baseSalary, double monthSales) {
+        super(id, name, baseSalary, monthSales);
     }
 
     @Override

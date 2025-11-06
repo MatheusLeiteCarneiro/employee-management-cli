@@ -8,8 +8,8 @@ public class SalesTrainee extends SalesEmployee{
         super();
     }
 
-    public SalesTrainee(String name, double baseSalary, double monthSales) {
-        super(name, baseSalary, monthSales);
+    public SalesTrainee(int id, String name, double baseSalary, double monthSales) {
+        super(id, name, baseSalary, monthSales);
     }
 
     @Override

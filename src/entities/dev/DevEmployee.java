@@ -9,8 +9,8 @@ public abstract class DevEmployee extends Employee {
         super();
     }
 
-    public DevEmployee(String name, double baseSalary, int projectsMade) {
-        super(name, baseSalary);
+    public DevEmployee(int id, String name, double baseSalary, int projectsMade) {
+        super(id, name, baseSalary);
         this.projectsMade = projectsMade;
     }
 

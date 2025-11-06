@@ -9,8 +9,8 @@ public abstract class SalesEmployee extends Employee {
         super();
     }
 
-    public SalesEmployee(String name, double baseSalary, double monthSales) {
-        super(name, baseSalary);
+    public SalesEmployee(int id, String name, double baseSalary, double monthSales) {
+        super(id,name, baseSalary);
         this.monthSales = monthSales;
     }
 

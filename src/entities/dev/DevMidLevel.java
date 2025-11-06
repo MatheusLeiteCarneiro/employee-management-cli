@@ -7,8 +7,8 @@ public class DevMidLevel extends DevEmployee{
         super();
     }
 
-    public DevMidLevel(String name, double baseSalary, int projectsMade) {
-        super(name, baseSalary, projectsMade);
+    public DevMidLevel(int id, String name, double baseSalary, int projectsMade) {
+        super(id, name, baseSalary, projectsMade);
     }
 
     @Override
