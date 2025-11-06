@@ -1,6 +1,7 @@
 package entities;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class EmployeeManager {
@@ -53,6 +54,19 @@ public class EmployeeManager {
         for (Employee employee : employeeList) {
             sb.append("ID: " + employee.getId() + ", Name: " + employee.getName() + "\n");
         }
+        return sb.toString();
+    }
+
+    public String payRollList() {
+        employeeList.sort(Comparator.comparing(Employee::getId));
+        StringBuilder sb = new StringBuilder();
+        sb.append("Payroll List:\n");
+        double total = 0.0;
+        for (Employee employee : employeeList) {
+            sb.append(employee.paymentForEmployee() + "\n");
+            total += employee.totalPayment();
+        }
+        sb.append("Total: $"+String.format("%.2f",total));
         return sb.toString();
     }
 
