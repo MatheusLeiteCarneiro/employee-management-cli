@@ -136,12 +136,22 @@ public class Program {
 
 
                 case 2:
+                    if (!employeeManager.verifyIfHaveEmployee()) {
+                        System.out.println("Operation canceled: There are no registered employees.");
+                        System.out.println("Please register an employee first (Option 1).");
+                        break;
+                    }
                     System.out.print(employeeManager.listAllEmployees());
 
                     break;
 
 
                 case 3:
+                    if (!employeeManager.verifyIfHaveEmployee()) {
+                        System.out.println("Operation canceled: There are no registered employees.");
+                        System.out.println("Please register an employee first (Option 1).");
+                        break;
+                    }
                     int informationToChange = 0;
                     System.out.print("Digit the employee ID you want to change the information: ");
                     int pickId = sc.nextInt();
@@ -527,6 +537,11 @@ public class Program {
 
 
                 case 4:
+                    if (!employeeManager.verifyIfHaveEmployee()) {
+                        System.out.println("Operation canceled: There are no registered employees.");
+                        System.out.println("Please register an employee first (Option 1).");
+                        break;
+                    }
                     System.out.print("Digit the employee ID you want to delete: ");
                     pickId = sc.nextInt();
                     idIndex = employeeManager.verifyId(pickId);
@@ -552,6 +567,11 @@ public class Program {
 
 
                 case 5:
+                    if (!employeeManager.verifyIfHaveEmployee()) {
+                        System.out.println("Operation canceled: There are no registered employees.");
+                        System.out.println("Please register an employee first (Option 1).");
+                        break;
+                    }
                     System.out.print("Digit the employee ID you want to calculate the payment: ");
                     pickId = sc.nextInt();
                     idIndex = employeeManager.verifyId(pickId);
@@ -566,6 +586,11 @@ public class Program {
 
 
                 case 6:
+                    if (!employeeManager.verifyIfHaveEmployee()) {
+                        System.out.println("Operation canceled: There are no registered employees.");
+                        System.out.println("Please register an employee first (Option 1).");
+                        break;
+                    }
                     System.out.println(employeeManager.payRollList());
                     break;
 
