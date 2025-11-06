@@ -9,9 +9,18 @@ public abstract class Employee {
     public Employee() {
     }
 
-    public Employee(String name, double baseSalary) {
+    public Employee(int id ,String name, double baseSalary) {
+        this.id = id;
         this.name = name;
         this.baseSalary = baseSalary;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
