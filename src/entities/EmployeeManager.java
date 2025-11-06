@@ -15,20 +15,20 @@ public class EmployeeManager {
         return employeeList;
     }
 
-    public void addEmploye(Employee employee) {
+    public void addEmployee(Employee employee) {
         employeeList.add(employee);
     }
 
-    public void removeEmploye(int index) {
+    public void removeEmployee(int index) {
         employeeList.remove(index);
     }
 
     public int verifyId(int id) {
-            for (Employee employee : employeeList) {
-                if (employee.getId() == id) {
-                    return employeeList.indexOf(employee);
-                }
+        for (Employee employee : employeeList) {
+            if (employee.getId() == id) {
+                return employeeList.indexOf(employee);
             }
+        }
 
         return -1;
     }
@@ -67,7 +67,7 @@ public class EmployeeManager {
             sb.append(employee.paymentForEmployee() + "\n");
             total += employee.totalPayment();
         }
-        sb.append("Total: $"+String.format("%.2f",total));
+        sb.append("Total: $" + String.format("%.2f", total));
         return sb.toString();
     }
 
