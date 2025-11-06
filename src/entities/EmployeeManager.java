@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeManager {
-    private List<Employee> employeeList ;
+    private List<Employee> employeeList;
 
     public EmployeeManager() {
         this.employeeList = new ArrayList<>();
@@ -13,26 +13,72 @@ public class EmployeeManager {
     public List<Employee> getEmployeeList() {
         return employeeList;
     }
-    public void addEmploye(Employee employee){
+
+    public void addEmploye(Employee employee) {
         employeeList.add(employee);
     }
 
-    public void removeEmploye(Employee employee){
+    public void removeEmploye(Employee employee) {
         employeeList.remove(employee);
     }
-    public double totalPayroll(){
+
+    public Integer verifyId(int id) {
+        if (id < 0) {
+            return -1;
+        }
+        for (Employee employee : employeeList) {
+            if (employee.getId() == id) {
+                return employeeList.indexOf(employee);
+            }
+        }
+        return null;
+    }
+
+    public boolean verifyIfHaveEmployee() {
+        if (employeeList.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
+    public double totalPayroll() {
         double sum = 0.0;
-        for (Employee employee : employeeList){
+        for (Employee employee : employeeList) {
             sum += employee.totalPayment();
         }
         return sum;
     }
-    public String listAllEmployees(){
+
+    public String listAllEmployees() {
         StringBuilder sb = new StringBuilder();
         sb.append("Employees list:\n");
-        for (Employee employee : employeeList){
+        for (Employee employee : employeeList) {
             sb.append("ID: " + employee.getId() + ", Name: " + employee.getName() + "\n");
         }
         return sb.toString();
+    }
+
+    public static boolean validValue(double value) {
+        if (value <= 0.0) {
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean validName(String name) {
+        if (name.isBlank()) {
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean verifyDepartment(Integer department) {
+        if (department == null) {
+            return false;
+        }
+        if (department == 1 || department == 2 || department == 3) {
+            return true;
+        }
+        return false;
     }
 }
