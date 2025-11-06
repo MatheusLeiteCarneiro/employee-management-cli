@@ -44,5 +44,6 @@ public abstract class Employee {
     }
 
     public abstract Double totalPayment();
+    public abstract String deparmentAndLevel();
 
 }
