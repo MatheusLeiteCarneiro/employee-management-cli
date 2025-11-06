@@ -12,4 +12,9 @@ public class SalesExecutive extends SalesEmployee {
     public Double totalPayment() {
         return getBaseSalary() + (getMonthSales() * COMISSION_RATE);
     }
+
+    @Override
+    public String deparmentAndLevel() {
+        return "Sales-Executive";
+    }
 }

@@ -13,4 +13,9 @@ public class HrEmployee extends Employee{
     public Double totalPayment() {
         return getBaseSalary();
     }
+
+    @Override
+    public String deparmentAndLevel() {
+        return "Human resources";
+    }
 }

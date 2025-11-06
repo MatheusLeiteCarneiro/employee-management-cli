@@ -11,4 +11,8 @@ public class DevSenior extends DevEmployee{
     public Double totalPayment() {
         return getBaseSalary() + (getProjectsMade() * BONUS_PER_PROJECT);
     }
+    @Override
+    public String deparmentAndLevel() {
+        return "Developer-Senior";
+    }
 }
