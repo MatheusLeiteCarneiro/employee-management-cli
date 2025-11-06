@@ -19,8 +19,8 @@ public class EmployeeManager {
         employeeList.add(employee);
     }
 
-    public void removeEmploye(Employee employee) {
-        employeeList.remove(employee);
+    public void removeEmploye(int index) {
+        employeeList.remove(index);
     }
 
     public int verifyId(int id) {
@@ -53,7 +53,7 @@ public class EmployeeManager {
         StringBuilder sb = new StringBuilder();
         sb.append("Employees list:\n");
         for (Employee employee : employeeList) {
-            sb.append(employee.typeOfEmployee() + "\n");
+            sb.append(employee.employeeRegister() + "\n");
         }
         return sb.toString();
     }
