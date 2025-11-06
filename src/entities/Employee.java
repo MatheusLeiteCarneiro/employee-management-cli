@@ -47,6 +47,11 @@ public abstract class Employee {
         sb.append( getId() + "- " + getName() + " | " + deparmentAndLevel());
         return sb.toString();
     }
+    public String employeeRegisterWithBaseSalary(){
+        StringBuilder sb = new StringBuilder();
+        sb.append( getId() + "- " + getName() + " | " + deparmentAndLevel() + " | Base salary: $" + String.format("%.2f",getBaseSalary()));
+        return sb.toString();
+    }
 
     public abstract Double totalPayment();
     public abstract String deparmentAndLevel();
