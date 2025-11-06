@@ -146,9 +146,9 @@ public class Program {
                     break;
                 case 3:
                     System.out.println(employeeManager.payRollList());
-
                     break;
                 case 4:
+                    System.out.print(employeeManager.listAllEmployees());
                     break;
                 case 5:
                     break;
