@@ -9,7 +9,7 @@ public abstract class SalesEmployee extends Employee {
         super();
     }
 
-    public SalesEmployee(String name, Double baseSalary, double monthSales) {
+    public SalesEmployee(String name, double baseSalary, double monthSales) {
         super(name, baseSalary);
         this.monthSales = monthSales;
     }
