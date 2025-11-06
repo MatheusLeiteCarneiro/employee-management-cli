@@ -71,42 +71,4 @@ public class EmployeeManager {
         return sb.toString();
     }
 
-    public static boolean validValue(double value) {
-        if (value <= 0.0) {
-            return false;
-        }
-        return true;
-    }
-
-    public static boolean validName(String name) {
-        if (name.isBlank()) {
-            return false;
-        }
-        return true;
-    }
-
-    public static boolean verifyDepartment(Integer department) {
-        if (department == null) {
-            return false;
-        }
-        if (department == 1 || department == 2 || department == 3) {
-            return true;
-        }
-        return false;
-    }
-
-    public static boolean verifyChange(int informationToChange) {
-        if(informationToChange == 1 || informationToChange == 2 || informationToChange == 3 || informationToChange == 4) {
-            return true;
-        }
-        return false;
-    }
-
-    public static boolean verifyChangeWithoutLevels(int informationToChange) {
-        if(informationToChange == 1 || informationToChange == 2 || informationToChange == 3){
-            return true;
-        }
-        return false;
-    }
-
 }
