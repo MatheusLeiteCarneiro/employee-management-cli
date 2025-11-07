@@ -561,7 +561,7 @@ public class Program {
                         System.out.println("Operation canceled!");
                     } else {
                         employeeManager.removeEmployee(idIndex);
-                        System.out.println("Employee succesfully deleted!");
+                        System.out.println("Employee successfully deleted!");
                     }
                     break;
 
