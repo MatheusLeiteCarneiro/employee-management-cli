@@ -17,6 +17,8 @@ public class Program {
         Locale.setDefault(Locale.US);
         Scanner sc = new Scanner(System.in);
         EmployeeManager employeeManager = new EmployeeManager();
+        int pickId = 0;
+        int idIndex = 0;
         Integer operation = null;
         System.out.println("Welcome to the Employee Management!");
         do {
@@ -42,95 +44,15 @@ public class Program {
 
                     sc.nextLine();
                     System.out.print("Name: ");
-                    String name = sc.nextLine();
-                    while (!validName(name)) {
-                        System.out.print("Type a valid name: ");
-                        name = sc.nextLine();
-                    }
+                    String name = validName(sc, sc.nextLine());
 
                     System.out.print("Base salary: ");
-                    double baseSalary = sc.nextDouble();
-                    while (!validValue(baseSalary)) {
-                        System.out.print("Type a value greater than 0: ");
-                        baseSalary = sc.nextDouble();
-                    }
-                    System.out.print("Department-(Digit: 1- for Sales, 2- for Developing, 3- for Human Resources): ");
-                    Integer department = null;
-                    while (!verifyDepartment(department)) {
-                        department = sc.nextInt();
-                        switch (department) {
-                            case 1:
-                                System.out.print("Value sold in this month: ");
-                                double monthSales = sc.nextDouble();
-                                while (!validValue(monthSales)) {
-                                    System.out.print("Type a value greater than 0: ");
-                                    monthSales = sc.nextDouble();
-                                }
-                                System.out.print("Level of seller employee (Digit: 1- for Trainee, 2- for Associate, 3- for Executive): ");
-                                Integer level = null;
-                                while (!SalesEmployee.verifyLevel(level)) {
-                                    level = sc.nextInt();
-                                    switch (level) {
-                                        case 1:
-                                            employeeManager.addEmployee(new SalesTrainee(id, name, baseSalary, monthSales));
-                                            break;
-                                        case 2:
-                                            employeeManager.addEmployee(new SalesAssociate(id, name, baseSalary, monthSales));
-                                            break;
-                                        case 3:
-                                            employeeManager.addEmployee(new SalesExecutive(id, name, baseSalary, monthSales));
-                                            break;
-                                        default:
-                                            System.out.println("Invalid level number.");
-                                            System.out.print("(Digit: 1- for Trainee, 2- for Associate, 3- for Executive): ");
-                                            break;
-                                    }
-                                }
-                                break;
-                            case 2:
-                                System.out.print("Projects completed this month: ");
-                                int projectsMade = sc.nextInt();
-                                while (!validValue(projectsMade)) {
-                                    System.out.print("Type a value greater than 0: ");
-                                    projectsMade = sc.nextInt();
-                                }
-                                System.out.print("Level of developer employee (Digit: 1- for Trainee, 2- for Junior, 3- for Mid level, 4- for Senior): ");
-                                level = null;
-                                while (!DevEmployee.verifyLevel(level)) {
-                                    level = sc.nextInt();
-                                    switch (level) {
-                                        case 1:
-                                            employeeManager.addEmployee(new DevTrainee(id, name, baseSalary, projectsMade));
-                                            break;
-                                        case 2:
-                                            employeeManager.addEmployee(new DevJunior(id, name, baseSalary, projectsMade));
-                                            break;
-                                        case 3:
-                                            employeeManager.addEmployee(new DevMidLevel(id, name, baseSalary, projectsMade));
-                                            break;
-                                        case 4:
-                                            employeeManager.addEmployee(new DevSenior(id, name, baseSalary, projectsMade));
-                                            break;
-                                        default:
-                                            System.out.println("Invalid level number.");
-                                            System.out.print("(Digit: 1- for Trainee, 2- for Junior, 3- for Mid level, 4- for Senior): ");
-                                            break;
-                                    }
-                                }
+                    double baseSalary = positiveDouble(sc, sc.nextDouble());
 
-
-                                break;
-                            case 3:
-                                employeeManager.addEmployee(new HrEmployee(id, name, baseSalary));
-                                break;
-
-                            default:
-                                System.out.println("Invalid department number.");
-                                System.out.print("(Digit: 1- for Sales, 2- for Developing, 3- for Human Resources): ");
-                                break;
-
-                        }
-                    }
+                    String department = setDepartment(sc);
+                    String departmentLevel = setDepartmentLevel(sc, department);
+                    Employee newEmployee = newEmployee(sc, id, name, baseSalary, department, departmentLevel);
+                    employeeManager.addEmployee(newEmployee);
                     System.out.println("Employee succesfully registered!");
                     break;
 
@@ -147,6 +69,7 @@ public class Program {
 
 
                 case 3:
+
                     if (!employeeManager.verifyIfHaveEmployee()) {
                         System.out.println("Operation canceled: There are no registered employees.");
                         System.out.println("Please register an employee first (Option 1).");
@@ -154,385 +77,18 @@ public class Program {
                     }
                     int informationToChange = 0;
                     System.out.print("Digit the employee ID you want to change the information: ");
-                    int pickId = sc.nextInt();
-                    int idIndex = employeeManager.verifyId(pickId);
+                    pickId = sc.nextInt();
+                    idIndex = employeeManager.verifyId(pickId);
                     while (idIndex == -1) {
                         System.out.print("This ID does not exist, digit a valid one: ");
                         pickId = sc.nextInt();
                         idIndex = employeeManager.verifyId(pickId);
                     }
-                    System.out.println("You chose the employee: " + employeeManager.getEmployeeList().get(idIndex).employeeRegisterWithBaseSalary());
-                    System.out.println("What's the information you want to change?");
                     Employee employee = employeeManager.getEmployeeList().get(idIndex);
-
-
-                    if (employee instanceof HrEmployee) {
-                        System.out.print("Digit:(1-Name | 2- Base salary | 3- Department): ");
-
-                        do {
-                            informationToChange = sc.nextInt();
-                            switch (informationToChange) {
-                                case 1:
-                                    System.out.println("The actual name is: " + employee.getName());
-                                    System.out.print("New name: ");
-                                    name = sc.nextLine();
-                                    while (!validName(name)) {
-                                        System.out.print("Type a valid name: ");
-                                        name = sc.nextLine();
-                                    }
-                                    employeeManager.getEmployeeList().get(idIndex).setName(name);
-                                    break;
-                                case 2:
-                                    System.out.println("The actual base salary is: $" + String.format("%.2f", employee.getBaseSalary()));
-                                    System.out.print("New base salary: ");
-                                    baseSalary = sc.nextDouble();
-                                    while (!validValue(baseSalary)) {
-                                        System.out.print("Type a value greater than 0: ");
-                                        baseSalary = sc.nextDouble();
-                                    }
-                                    employeeManager.getEmployeeList().get(idIndex).setBaseSalary(baseSalary);
-
-                                    break;
-
-                                case 3:
-                                    employeeManager.removeEmployee(idIndex);
-                                    System.out.println("The actual department is: " + employee.deparmentAndLevel());
-                                    System.out.print("New department (digit: 1- for Sales, 2- for Developing, 3- for Human Resources): ");
-                                    department = null;
-                                    while (!verifyDepartment(department)) {
-                                        department = sc.nextInt();
-                                        switch (department) {
-                                            case 1:
-                                                System.out.print("Value sold in this month: ");
-                                                double monthSales = sc.nextDouble();
-                                                while (!validValue(monthSales)) {
-                                                    System.out.print("Type a value greater than 0: ");
-                                                    monthSales = sc.nextDouble();
-                                                }
-                                                System.out.print("Level of seller employee (Digit: 1- for Trainee, 2- for Associate, 3- for Executive): ");
-                                                Integer level = null;
-                                                while (!SalesEmployee.verifyLevel(level)) {
-                                                    level = sc.nextInt();
-                                                    switch (level) {
-                                                        case 1:
-                                                            employeeManager.addEmployee(new SalesTrainee(employee.getId(), employee.getName(), employee.getBaseSalary(), monthSales));
-                                                            break;
-                                                        case 2:
-                                                            employeeManager.addEmployee(new SalesAssociate(employee.getId(), employee.getName(), employee.getBaseSalary(), monthSales));
-                                                            break;
-                                                        case 3:
-                                                            employeeManager.addEmployee(new SalesExecutive(employee.getId(), employee.getName(), employee.getBaseSalary(), monthSales));
-                                                            break;
-                                                        default:
-                                                            System.out.println("Invalid level number.");
-                                                            System.out.print("(Digit: 1- for Trainee, 2- for Associate, 3- for Executive): ");
-                                                            break;
-                                                    }
-                                                }
-                                                break;
-                                            case 2:
-                                                System.out.print("Projects completed this month: ");
-                                                int projectsMade = sc.nextInt();
-                                                while (!validValue(projectsMade)) {
-                                                    System.out.print("Type a value greater than 0: ");
-                                                    projectsMade = sc.nextInt();
-                                                }
-                                                System.out.print("Level of developer employee (Digit: 1- for Trainee, 2- for Junior, 3- for Mid level, 4- for Senior): ");
-                                                level = null;
-                                                while (!DevEmployee.verifyLevel(level)) {
-                                                    level = sc.nextInt();
-                                                    switch (level) {
-                                                        case 1:
-                                                            employeeManager.addEmployee(new DevTrainee(employee.getId(), employee.getName(), employee.getBaseSalary(), projectsMade));
-                                                            break;
-                                                        case 2:
-                                                            employeeManager.addEmployee(new DevJunior(employee.getId(), employee.getName(), employee.getBaseSalary(), projectsMade));
-                                                            break;
-                                                        case 3:
-                                                            employeeManager.addEmployee(new DevMidLevel(employee.getId(), employee.getName(), employee.getBaseSalary(), projectsMade));
-                                                            break;
-                                                        case 4:
-                                                            employeeManager.addEmployee(new DevSenior(employee.getId(), employee.getName(), employee.getBaseSalary(), projectsMade));
-                                                            break;
-                                                        default:
-                                                            System.out.println("Invalid level number.");
-                                                            System.out.print("(Digit: 1- for Trainee, 2- for Junior, 3- for Mid level, 4- for Senior): ");
-                                                            break;
-                                                    }
-                                                }
-
-
-                                                break;
-                                            case 3:
-                                                employeeManager.addEmployee(new HrEmployee(employee.getId(), employee.getName(), employee.getBaseSalary()));
-                                                break;
-
-                                            default:
-                                                System.out.println("Invalid department number.");
-                                                System.out.print("(Digit: 1- for Sales, 2- for Developing, 3- for Human Resources): ");
-                                                break;
-
-                                        }
-                                    }
-
-                                    break;
-                                default:
-                                    System.out.print("Invalid, digit:(1-Name | 2- Base salary | 3- Department): ");
-                                    break;
-                            }
-                        } while (!verifyChangeWithoutLevels(informationToChange));
-                        System.out.println("Changes saved!");
-                    } else if (employee instanceof SalesEmployee) {
-                        System.out.print("Digit:(1-Name | 2- Base salary | 3- Department/Level | 4- Value sold): ");
-                        do {
-                            informationToChange = sc.nextInt();
-                            switch (informationToChange) {
-                                case 1:
-                                    System.out.println("The actual name is: " + employee.getName());
-                                    System.out.print("New name: ");
-                                    name = sc.nextLine();
-                                    while (!validName(name)) {
-                                        System.out.print("Type a valid name: ");
-                                        name = sc.nextLine();
-                                    }
-                                    employeeManager.getEmployeeList().get(idIndex).setName(name);
-                                    break;
-                                case 2:
-                                    System.out.println("The actual base salary is: $" + String.format("%.2f", employee.getBaseSalary()));
-                                    System.out.print("New base salary: ");
-                                    baseSalary = sc.nextDouble();
-                                    while (!validValue(baseSalary)) {
-                                        System.out.print("Type a value greater than 0: ");
-                                        baseSalary = sc.nextDouble();
-                                    }
-                                    employeeManager.getEmployeeList().get(idIndex).setBaseSalary(baseSalary);
-
-                                    break;
-
-                                case 3:
-                                    employeeManager.removeEmployee(idIndex);
-                                    System.out.println("The actual department is: " + employee.deparmentAndLevel());
-                                    System.out.print("New department (digit: 1- for Sales, 2- for Developing, 3- for Human Resources): ");
-                                    department = null;
-                                    while (!verifyDepartment(department)) {
-                                        department = sc.nextInt();
-                                        switch (department) {
-                                            case 1:
-                                                System.out.print("Value sold in this month: ");
-                                                double monthSales = sc.nextDouble();
-                                                while (!validValue(monthSales)) {
-                                                    System.out.print("Type a value greater than 0: ");
-                                                    monthSales = sc.nextDouble();
-                                                }
-                                                System.out.print("Level of seller employee (Digit: 1- for Trainee, 2- for Associate, 3- for Executive): ");
-                                                Integer level = null;
-                                                while (!SalesEmployee.verifyLevel(level)) {
-                                                    level = sc.nextInt();
-                                                    switch (level) {
-                                                        case 1:
-                                                            employeeManager.addEmployee(new SalesTrainee(employee.getId(), employee.getName(), employee.getBaseSalary(), monthSales));
-                                                            break;
-                                                        case 2:
-                                                            employeeManager.addEmployee(new SalesAssociate(employee.getId(), employee.getName(), employee.getBaseSalary(), monthSales));
-                                                            break;
-                                                        case 3:
-                                                            employeeManager.addEmployee(new SalesExecutive(employee.getId(), employee.getName(), employee.getBaseSalary(), monthSales));
-                                                            break;
-                                                        default:
-                                                            System.out.println("Invalid level number.");
-                                                            System.out.print("(Digit: 1- for Trainee, 2- for Associate, 3- for Executive): ");
-                                                            break;
-                                                    }
-                                                }
-                                                break;
-                                            case 2:
-                                                System.out.print("Projects completed this month: ");
-                                                int projectsMade = sc.nextInt();
-                                                while (!validValue(projectsMade)) {
-                                                    System.out.print("Type a value greater than 0: ");
-                                                    projectsMade = sc.nextInt();
-                                                }
-                                                System.out.print("Level of developer employee (Digit: 1- for Trainee, 2- for Junior, 3- for Mid level, 4- for Senior): ");
-                                                level = null;
-                                                while (!DevEmployee.verifyLevel(level)) {
-                                                    level = sc.nextInt();
-                                                    switch (level) {
-                                                        case 1:
-                                                            employeeManager.addEmployee(new DevTrainee(employee.getId(), employee.getName(), employee.getBaseSalary(), projectsMade));
-                                                            break;
-                                                        case 2:
-                                                            employeeManager.addEmployee(new DevJunior(employee.getId(), employee.getName(), employee.getBaseSalary(), projectsMade));
-                                                            break;
-                                                        case 3:
-                                                            employeeManager.addEmployee(new DevMidLevel(employee.getId(), employee.getName(), employee.getBaseSalary(), projectsMade));
-                                                            break;
-                                                        case 4:
-                                                            employeeManager.addEmployee(new DevSenior(employee.getId(), employee.getName(), employee.getBaseSalary(), projectsMade));
-                                                            break;
-                                                        default:
-                                                            System.out.println("Invalid level number.");
-                                                            System.out.print("(Digit: 1- for Trainee, 2- for Junior, 3- for Mid level, 4- for Senior): ");
-                                                            break;
-                                                    }
-                                                }
-
-
-                                                break;
-                                            case 3:
-                                                employeeManager.addEmployee(new HrEmployee(employee.getId(), employee.getName(), employee.getBaseSalary()));
-                                                break;
-
-                                            default:
-                                                System.out.println("Invalid department number.");
-                                                System.out.print("(Digit: 1- for Sales, 2- for Developing, 3- for Human Resources): ");
-                                                break;
-
-                                        }
-                                    }
-
-                                    break;
-                                case 4:
-                                    System.out.println("The actual value sold is: $" + String.format("%.2f", ((SalesEmployee) employee).getMonthSales()));
-                                    System.out.print("New value sold: ");
-                                    double valueSold = sc.nextDouble();
-                                    while (!validValue(valueSold)) {
-                                        System.out.print("Type a value greater than 0: ");
-                                        valueSold = sc.nextDouble();
-                                    }
-                                    ((SalesEmployee) employeeManager.getEmployeeList().get(idIndex)).setMonthSales(valueSold);
-                                    break;
-                                default:
-                                    System.out.print("Invalid, digit:(1-Name | 2- Base salary | 3- Department/Level | 4- Value sold): ");
-                                    break;
-                            }
-                        } while (!verifyChange(informationToChange));
-                        System.out.println("Changes saved!");
-                    } else {
-                        System.out.print("Digit:(1-Name | 2- Base salary | 3- Department/Level | 4- Projects made): ");
-                        do {
-                            informationToChange = sc.nextInt();
-                            switch (informationToChange) {
-                                case 1:
-                                    System.out.println("The actual name is: " + employee.getName());
-                                    System.out.print("New name: ");
-                                    name = sc.nextLine();
-                                    while (!validName(name)) {
-                                        System.out.print("Type a valid name: ");
-                                        name = sc.nextLine();
-                                    }
-                                    employeeManager.getEmployeeList().get(idIndex).setName(name);
-                                    break;
-                                case 2:
-                                    System.out.println("The actual base salary is: $" + String.format("%.2f", employee.getBaseSalary()));
-                                    System.out.print("New base salary: ");
-                                    baseSalary = sc.nextDouble();
-                                    while (!validValue(baseSalary)) {
-                                        System.out.print("Type a value greater than 0: ");
-                                        baseSalary = sc.nextDouble();
-                                    }
-                                    employeeManager.getEmployeeList().get(idIndex).setBaseSalary(baseSalary);
-
-                                    break;
-
-                                case 3:
-                                    employeeManager.removeEmployee(idIndex);
-                                    System.out.println("The actual department is: " + employee.deparmentAndLevel());
-                                    System.out.print("New department (digit: 1- for Sales, 2- for Developing, 3- for Human Resources): ");
-                                    department = null;
-                                    while (!verifyDepartment(department)) {
-                                        department = sc.nextInt();
-                                        switch (department) {
-                                            case 1:
-                                                System.out.print("Value sold in this month: ");
-                                                double monthSales = sc.nextDouble();
-                                                while (!validValue(monthSales)) {
-                                                    System.out.print("Type a value greater than 0: ");
-                                                    monthSales = sc.nextDouble();
-                                                }
-                                                System.out.print("Level of seller employee (Digit: 1- for Trainee, 2- for Associate, 3- for Executive): ");
-                                                Integer level = null;
-                                                while (!SalesEmployee.verifyLevel(level)) {
-                                                    level = sc.nextInt();
-                                                    switch (level) {
-                                                        case 1:
-                                                            employeeManager.addEmployee(new SalesTrainee(employee.getId(), employee.getName(), employee.getBaseSalary(), monthSales));
-                                                            break;
-                                                        case 2:
-                                                            employeeManager.addEmployee(new SalesAssociate(employee.getId(), employee.getName(), employee.getBaseSalary(), monthSales));
-                                                            break;
-                                                        case 3:
-                                                            employeeManager.addEmployee(new SalesExecutive(employee.getId(), employee.getName(), employee.getBaseSalary(), monthSales));
-                                                            break;
-                                                        default:
-                                                            System.out.println("Invalid level number.");
-                                                            System.out.print("(Digit: 1- for Trainee, 2- for Associate, 3- for Executive): ");
-                                                            break;
-                                                    }
-                                                }
-                                                break;
-                                            case 2:
-                                                System.out.print("Projects completed this month: ");
-                                                int projectsMade = sc.nextInt();
-                                                while (!validValue(projectsMade)) {
-                                                    System.out.print("Type a value greater than 0: ");
-                                                    projectsMade = sc.nextInt();
-                                                }
-                                                System.out.print("Level of developer employee (Digit: 1- for Trainee, 2- for Junior, 3- for Mid level, 4- for Senior): ");
-                                                level = null;
-                                                while (!DevEmployee.verifyLevel(level)) {
-                                                    level = sc.nextInt();
-                                                    switch (level) {
-                                                        case 1:
-                                                            employeeManager.addEmployee(new DevTrainee(employee.getId(), employee.getName(), employee.getBaseSalary(), projectsMade));
-                                                            break;
-                                                        case 2:
-                                                            employeeManager.addEmployee(new DevJunior(employee.getId(), employee.getName(), employee.getBaseSalary(), projectsMade));
-                                                            break;
-                                                        case 3:
-                                                            employeeManager.addEmployee(new DevMidLevel(employee.getId(), employee.getName(), employee.getBaseSalary(), projectsMade));
-                                                            break;
-                                                        case 4:
-                                                            employeeManager.addEmployee(new DevSenior(employee.getId(), employee.getName(), employee.getBaseSalary(), projectsMade));
-                                                            break;
-                                                        default:
-                                                            System.out.println("Invalid level number.");
-                                                            System.out.print("(Digit: 1- for Trainee, 2- for Junior, 3- for Mid level, 4- for Senior): ");
-                                                            break;
-                                                    }
-                                                }
-
-
-                                                break;
-                                            case 3:
-                                                employeeManager.addEmployee(new HrEmployee(employee.getId(), employee.getName(), employee.getBaseSalary()));
-                                                break;
-
-                                            default:
-                                                System.out.println("Invalid department number.");
-                                                System.out.print("(Digit: 1- for Sales, 2- for Developing, 3- for Human Resources): ");
-                                                break;
-
-                                        }
-                                    }
-
-                                    break;
-                                case 4:
-                                    System.out.println("The actual amount of projects made is: " + ((DevEmployee) employee).getProjectsMade());
-                                    System.out.print("New projects made amount: ");
-                                    int projectsMade = sc.nextInt();
-                                    while (!validValue(projectsMade)) {
-                                        System.out.print("Type a value greater than 0: ");
-                                        projectsMade = sc.nextInt();
-                                    }
-                                    ((DevEmployee) employeeManager.getEmployeeList().get(idIndex)).setProjectsMade(projectsMade);
-                                    break;
-                                default:
-                                    System.out.print("Invalid, digit:(1-Name | 2- Base salary | 3- Department/Level | 4- Projects made): ");
-                                    break;
-                            }
-                        } while (!verifyChange(informationToChange));
-                        System.out.println("Changes saved!");
-                    }
+                    Employee changedEmployee = changeEmployeeInfo(sc, employee);
+                    employeeManager.removeEmployee(idIndex);
+                    employeeManager.addEmployee(changedEmployee);
+                    System.out.println("Changes saved!");
                     break;
 
 
@@ -552,11 +108,7 @@ public class Program {
                     }
                     System.out.println("You chose the employee: " + employeeManager.getEmployeeList().get(idIndex).employeeRegister());
                     System.out.print("Digit: (1-to confirm | 0-to cancel): ");
-                    int confirmation = sc.nextInt();
-                    while (!verifyResponse(confirmation)) {
-                        System.out.print("Invalid response, digit: (1-to confirm | 0-to cancel): ");
-                        confirmation = sc.nextInt();
-                    }
+                    int confirmation = verifyConfirmation(sc, sc.nextInt());
                     if (confirmation == 0) {
                         System.out.println("Operation canceled!");
                     } else {
@@ -603,53 +155,227 @@ public class Program {
                     break;
             }
 
-        }
-        while (operation != 0);
+        } while (operation != 0);
         sc.close();
     }
 
-    private static boolean verifyResponse(int confirmation) {
-        if (confirmation == 0 || confirmation == 1) {
-            return true;
+    private static int verifyConfirmation(Scanner sc, int confirmation) {
+        while (confirmation != 0 && confirmation != 1) {
+            System.out.print("Invalid response, digit: (1-to confirm | 0-to cancel): ");
+            confirmation = sc.nextInt();
         }
-        return false;
+        return confirmation;
     }
 
-    private static boolean validValue(double value) {
-        if (value <= 0.0) {
-            return false;
+    private static double positiveDouble(Scanner sc, double value) {
+        while (value <= 0.0) {
+            System.out.print("Type a value greater than 0: ");
+            value = sc.nextDouble();
         }
-        return true;
+        return value;
     }
 
-    private static boolean validName(String name) {
-        if (name.isBlank()) {
-            return false;
+    private static int positiveInt(Scanner sc, int value) {
+        while (value < 0) {
+            System.out.print("Type a positive value: ");
+            value = sc.nextInt();
         }
-        return true;
+        return value;
     }
 
-    private static boolean verifyDepartment(Integer department) {
-        if (department == null) {
-            return false;
+    private static String validName(Scanner sc, String name) {
+        while (name.isBlank()) {
+            System.out.print("Type a valid name: ");
+            name = sc.nextLine();
         }
-        if (department == 1 || department == 2 || department == 3) {
-            return true;
-        }
-        return false;
+        return name;
     }
 
-    private static boolean verifyChange(int informationToChange) {
-        if (informationToChange == 1 || informationToChange == 2 || informationToChange == 3 || informationToChange == 4) {
-            return true;
+
+    private static String setDepartment(Scanner sc) {
+        String departmentName;
+        while (true) {
+            System.out.print("Department-(Digit: 1- for Sales, 2- for Developing, 3- for Human Resources): ");
+            int departmentNumber = sc.nextInt();
+            if (departmentNumber == 1) {
+                departmentName = "Sales";
+                break;
+            } else if (departmentNumber == 2) {
+                departmentName = "Dev";
+                break;
+
+            } else if (departmentNumber == 3) {
+                departmentName = "Human Resources";
+                break;
+            } else {
+                System.out.println("Invalid department number.");
+            }
         }
-        return false;
+        return departmentName;
+
     }
 
-    private static boolean verifyChangeWithoutLevels(int informationToChange) {
-        if (informationToChange == 1 || informationToChange == 2 || informationToChange == 3) {
-            return true;
+    private static String setDepartmentLevel(Scanner sc, String department) {
+        String levelName = null;
+        int levelNumber = 0;
+        boolean validLevel = false;
+
+        switch (department) {
+            case "Human resources":
+                break;
+            case "Sales":
+                while (!validLevel) {
+                    System.out.print("Level of seller employee (Digit: 1- for Trainee, 2- for Associate, 3- for Executive): ");
+                    levelNumber = sc.nextInt();
+                    switch (levelNumber) {
+                        case 1:
+                            levelName = "Trainee";
+                            validLevel = true;
+                            break;
+                        case 2:
+                            levelName = "Associate";
+                            validLevel = true;
+                            break;
+                        case 3:
+                            levelName = "Executive";
+                            validLevel = true;
+                            break;
+                        default:
+                            System.out.println("Invalid level number.");
+                    }
+
+                }
+                break;
+            case "Dev":
+                while (!validLevel) {
+                    System.out.print("(Digit: 1- for Trainee, 2- for Junior, 3- for Mid level, 4- for Senior): ");
+                    levelNumber = sc.nextInt();
+                    switch (levelNumber) {
+                        case 1:
+                            levelName = "Trainee";
+                            validLevel = true;
+                            break;
+                        case 2:
+                            levelName = "Junior";
+                            validLevel = true;
+                            break;
+                        case 3:
+                            levelName = "MidLevel";
+                            validLevel = true;
+                            break;
+                        case 4:
+                            levelName = "Senior";
+                            validLevel = true;
+                            break;
+                        default:
+                            System.out.println("Invalid level number.");
+                    }
+
+                }
+                break;
         }
-        return false;
+
+
+        return levelName;
+
     }
+
+    private static Employee newEmployee(Scanner sc, int id, String name, double baseSalary, String department, String departmentLevel) {
+        switch (department) {
+            case "Human Resources":
+                return new HrEmployee(id, name, baseSalary);
+            case "Sales":
+                System.out.print("Value sold in this month: ");
+                double valueSold = positiveDouble(sc, sc.nextDouble());
+                switch (departmentLevel) {
+                    case "Trainee":
+                        return new SalesTrainee(id, name, baseSalary, valueSold);
+                    case "Associate":
+                        return new SalesAssociate(id, name, baseSalary, valueSold);
+                    case "Executive":
+                        return new SalesExecutive(id, name, baseSalary, valueSold);
+
+                }
+                break;
+            case "Dev":
+                System.out.print("Projects made this month: ");
+                int projectsMade = positiveInt(sc, sc.nextInt());
+                switch (departmentLevel) {
+                    case "Trainee":
+                        return new DevTrainee(id, name, baseSalary, projectsMade);
+                    case "Junior":
+                        return new DevJunior(id, name, baseSalary, projectsMade);
+                    case "MidLevel":
+                        return new DevMidLevel(id, name, baseSalary, projectsMade);
+                    case "Senior":
+                        return new DevSenior(id, name, baseSalary, projectsMade);
+
+                }
+                break;
+        }
+        return null;
+    }
+
+    private static Employee changeEmployeeInfo(Scanner sc, Employee oldEmployee) {
+        boolean confirm = false;
+        System.out.println("You chose the employee: " + oldEmployee.employeeRegisterWithBaseSalary());
+        System.out.println("What's the information you want to change?");
+
+        while (true) {
+            if (oldEmployee instanceof HrEmployee) {
+                System.out.print("Digit:(1-Name | 2- Base salary | 3- Department/Level): ");
+            }
+            if (oldEmployee instanceof SalesEmployee) {
+                System.out.print("Digit:(1-Name | 2- Base salary | 3- Department/Level | 4- Value sold): ");
+            }
+            if (oldEmployee instanceof DevEmployee) {
+                System.out.print("Digit:(1-Name | 2- Base salary | 3- Department/Level | 4- Projects made): ");
+            }
+            int operation = sc.nextInt();
+            switch (operation) {
+                case 1:
+                    System.out.println("The actual name is: " + oldEmployee.getName());
+                    System.out.print("New name: ");
+                    sc.nextLine();
+                    String name = validName(sc, sc.nextLine());
+                    oldEmployee.setName(name);
+                    return oldEmployee;
+                case 2:
+                    System.out.println("The actual base salary is: $" + String.format("%.2f", oldEmployee.getBaseSalary()));
+                    System.out.print("New base salary: ");
+                    double baseSalary = positiveDouble(sc, sc.nextDouble());
+                    oldEmployee.setBaseSalary(baseSalary);
+                    return oldEmployee;
+
+                case 3:
+                    System.out.println("Old department and level: " + oldEmployee.deparmentAndLevel());
+                    String department = setDepartment(sc);
+                    String departmentLevel = setDepartmentLevel(sc, department);
+                    return newEmployee(sc, oldEmployee.getId(), oldEmployee.getName(), oldEmployee.getBaseSalary(), department, departmentLevel);
+
+
+                case 4:
+                    if (oldEmployee instanceof SalesEmployee) {
+                        System.out.println("Actual value sold: $" + String.format("%.2f", ((SalesEmployee) oldEmployee).getMonthSales()));
+                        System.out.print("New value sold: ");
+                        double valueSold = positiveDouble(sc, sc.nextDouble());
+                        ((SalesEmployee) oldEmployee).setMonthSales(valueSold);
+                        return oldEmployee;
+                    }
+                    if (oldEmployee instanceof DevEmployee) {
+                        System.out.println("Actual amount of projects made: " + ((DevEmployee) oldEmployee).getProjectsMade());
+                        System.out.print("New amount: ");
+                        int projectsMade = positiveInt(sc, sc.nextInt());
+                        ((DevEmployee) oldEmployee).setProjectsMade(projectsMade);
+                        return oldEmployee;
+                    }
+                default:
+                    System.out.println("Invalid operation!");
+
+            }
+        }
+
+
+    }
+
 }
