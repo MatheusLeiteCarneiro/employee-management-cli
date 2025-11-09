@@ -53,7 +53,7 @@ public class Program {
                     String departmentLevel = setDepartmentLevel(sc, department);
                     Employee newEmployee = newEmployee(sc, id, name, baseSalary, department, departmentLevel);
                     employeeManager.addEmployee(newEmployee);
-                    System.out.println("Employee succesfully registered!");
+                    System.out.println("Employee successfully registered!");
                     break;
 
 
@@ -75,7 +75,6 @@ public class Program {
                         System.out.println("Please register an employee first (Option 1).");
                         break;
                     }
-                    int informationToChange = 0;
                     System.out.print("Digit the employee ID you want to change the information: ");
                     pickId = sc.nextInt();
                     idIndex = employeeManager.verifyId(pickId);
@@ -317,7 +316,6 @@ public class Program {
     }
 
     private static Employee changeEmployeeInfo(Scanner sc, Employee oldEmployee) {
-        boolean confirm = false;
         System.out.println("You chose the employee: " + oldEmployee.employeeRegisterWithBaseSalary());
         System.out.println("What's the information you want to change?");
 
