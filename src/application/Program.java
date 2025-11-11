@@ -21,8 +21,8 @@ public class Program {
         do {
             System.out.println("\nWhat's the operation you want to make it?");
             System.out.println("Digit:");
-            System.out.println("| 1- Register a new employee | 2- List all employees | 3- Change a employee information |");
-            System.out.println("| 4- Delete a employee | 5- Calculate month payment for a employee | 6- Check total payroll |");
+            System.out.println("| 1- Register a new employee | 2- List all employees | 3- Change an employee information |");
+            System.out.println("| 4- Delete an employee | 5- Calculate month payment for an employee | 6- Check total payroll |");
             System.out.println("| 0- finish operations |");
             operation = sc.nextInt();
             System.out.println();
