@@ -4,10 +4,7 @@ import entities.Employee;
 import entities.EmployeeManager;
 import entities.HrEmployee;
 import entities.dev.*;
-import entities.sales.SalesAssociate;
-import entities.sales.SalesEmployee;
-import entities.sales.SalesExecutive;
-import entities.sales.SalesTrainee;
+import entities.sales.*;
 
 import java.util.Locale;
 import java.util.Scanner;
